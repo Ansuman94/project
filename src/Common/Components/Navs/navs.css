@@ -1,0 +1,18 @@
+.nav-cell{
+  text-decoration: none;
+  flex: 1;
+  background-color: #ccc;
+  border: 1px solid #666;
+}
+ul{
+  list-style-type: none;
+}
+.nav-wrapper{
+  display: flex;
+  justify-content: flex-end;
+  padding: 0px;
+}
+.selected{
+  background-color: #666;
+  color: #fff;
+}

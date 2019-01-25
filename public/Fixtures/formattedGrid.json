@@ -1,0 +1,681 @@
+[{
+        "caseid": "AU351",
+        "isChecked": true,
+        "data": [{
+                "id": "lastname",
+                "value": "Mohapatra",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "firstname",
+                "value": "Ansuman",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "ecn",
+                "value": "361283681",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "caseid",
+                "value": "AU351",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "datecreated",
+                "value": "10/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "dateClosed",
+                "value": "20/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "currworkflow",
+                "value": "account maintainance",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "casestatus",
+                "value": "assigned to",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "assignedto",
+                "value":"abc",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            }
+        ]
+    },
+    {
+        "caseid": "AU352",
+        "isChecked": true,
+        "data": [{
+                "id": "lastname",
+                "value": "Mohapatra",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "firstname",
+                "value": "Ansuman",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "ecn",
+                "value": "361283681",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "caseid",
+                "value": "AU352",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "datecreated",
+                "value": "10/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "dateClosed",
+                "value": "20/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "currworkflow",
+                "value": "account maintainance",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "casestatus",
+                "value": "assigned to",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "assignedto",
+                "value": "cde",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            }
+        ]
+    },
+    {
+        "caseid": "AU354",
+        "isChecked": true,
+        "data": [{
+                "id": "lastname",
+                "value": "Mohapatra",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "firstname",
+                "value": "Ansuman",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "ecn",
+                "value": "361283681",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "caseid",
+                "value": "AU354",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "datecreated",
+                "value": "10/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "dateClosed",
+                "value": "20/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "currworkflow",
+                "value": "account maintainance",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "casestatus",
+                "value": "assigned to",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "assignedto",
+                "value": "ghe",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            }
+        ]
+    },
+    {
+        "caseid": "AU355",
+        "isChecked": true,
+        "data": [{
+                "id": "lastname",
+                "value": "Mohapatra",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "firstname",
+                "value": "Ansuman",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "ecn",
+                "value": "361283681",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "caseid",
+                "value": "AU355",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "datecreated",
+                "value": "10/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "dateClosed",
+                "value": "20/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "currworkflow",
+                "value": "account maintainance",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "casestatus",
+                "value": "assigned to",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "assignedto",
+                "value": "gjgk",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            }
+        ]
+    },
+    {
+        "caseid": "AU356",
+        "isChecked": true,
+        "data": [{
+                "id": "lastname",
+                "value": "Mohapatra",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "firstname",
+                "value": "Ansuman",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "ecn",
+                "value": "361283681",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "caseid",
+                "value": "AU356",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "datecreated",
+                "value": "10/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "dateClosed",
+                "value": "20/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "currworkflow",
+                "value": "account maintainance",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "casestatus",
+                "value": "assigned to",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "assignedto",
+                "value": "kfj",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            }
+        ]
+    },
+    {
+        "caseid": "AU357",
+        "isChecked": true,
+        "data": [{
+                "id": "lastname",
+                "value": "Mohapatra",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "firstname",
+                "value": "Ansuman",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "ecn",
+                "value": "361283681",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "caseid",
+                "value": "AU357",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "datecreated",
+                "value": "10/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "dateClosed",
+                "value": "20/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "currworkflow",
+                "value": "account maintainance",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "casestatus",
+                "value": "assigned to",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "assignedto",
+                "value": "utm",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            }
+        ]
+    },
+    {
+        "caseid": "AU358",
+        "isChecked": true,
+        "data": [{
+                "id": "lastname",
+                "value": "Mohapatra",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "firstname",
+                "value": "Ansuman",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "ecn",
+                "value": "361283681",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "caseid",
+                "value": "AU358",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "datecreated",
+                "value": "10/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "dateClosed",
+                "value": "20/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "currworkflow",
+                "value": "account maintainance",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "casestatus",
+                "value": "assigned to",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "assignedto",
+                "value": "klm",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            }
+        ]
+    },
+    {
+        "caseid": "AU359",
+        "isChecked": true,
+        "data": [{
+                "id": "lastname",
+                "value": "Mohapatra",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "firstname",
+                "value": "Ansuman",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "ecn",
+                "value": "361283681",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "caseid",
+                "value": "AU359",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "datecreated",
+                "value": "10/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "dateClosed",
+                "value": "20/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "currworkflow",
+                "value": "account maintainance",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "casestatus",
+                "value": "assigned to",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "assignedto",
+                "value": "vnb",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            }
+        ]
+    },
+    {
+        "caseid": "AU360",
+        "isChecked": true,
+        "data": [{
+                "id": "lastname",
+                "value": "Mohapatra",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "firstname",
+                "value": "Ansuman",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "ecn",
+                "value": "361283681",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "caseid",
+                "value": "AU360",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "datecreated",
+                "value": "10/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "dateClosed",
+                "value": "20/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "currworkflow",
+                "value": "account maintainance",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "casestatus",
+                "value": "assigned to",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "assignedto",
+                "value": "iri",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            }
+        ]
+    },
+    {
+        "caseid": "AU361",
+        "isChecked": true,
+        "data": [{
+                "id": "lastname",
+                "value": "Mohapatra",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "firstname",
+                "value": "Ansuman",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "ecn",
+                "value": "361283681",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "caseid",
+                "value": "AU361",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "datecreated",
+                "value": "10/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "dateClosed",
+                "value": "20/11/2018",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "currworkflow",
+                "value": "account maintainance",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "casestatus",
+                "value": "assigned to",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            },
+            {
+                "id": "assignedto",
+                "value": "fjo",
+                "isClickable": true,
+                "underlined": false,
+                "isNegative": true
+            }
+        ]
+    }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "userid":"Processor",
+    "password":"1234",
+    "role":"processor"
+  },
+  {
+    "userid":"Leader",
+    "password":"1234",
+    "role":"leadership"
+  },
+  {
+    "userid":"Qrd",
+    "password":"1234",
+    "role":"qrd"
+  }
+]
