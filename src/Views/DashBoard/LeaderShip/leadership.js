@@ -86,4 +86,4 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch){
     return bindActionCreators({selectNav: onNavChange,selectTab : onTabChange, onLogout :onLogout}, dispatch);
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Leadership);;
+export default connect(mapStateToProps, mapDispatchToProps)(Leadership);

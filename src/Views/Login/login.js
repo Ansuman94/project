@@ -6,12 +6,12 @@ import './login.css';
 class Login extends Component {
   render() {
     console.log('saga login rendering',this.props.userData);
-    if(Object.keys(this.props.userData).length > 0){
-      let role=this.props.userData["role"];
-      console.log('role',this.props.userData["role"]);
-      return <Redirect to={`${role}/`} />;
-    }
-
+    // if(Object.keys(this.props.userData).length > 0){
+    //   let role=this.props.userData["role"];
+    //   console.log('role',this.props.userData["role"]);
+    //   //return <Redirect to={`${role}/`} />;
+    //   return <Redirect to="dashboard" />;
+    // }
     return (
       <div className="Login">
         <div><input type="text" ref="userId" placeHolder="UserId"/></div>

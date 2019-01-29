@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {BrowserRouter,Route,Switch,Redirect} from 'react-router-dom';
+import {BrowserRouter,Route,Switch,Redirect,withRouter} from 'react-router-dom';
 import history from './history';
 
 import Login from './Views/Login/login';
@@ -14,6 +14,8 @@ import {getUserDetails} from './User/action-userDetails';
 
 import UserValidation from './User/userValidation';
 import Nav from './Nav';
+
+import DashBoard from './Views/DashBoard/dashBoard';
 
 
 
@@ -39,21 +41,33 @@ class App extends Component {
     console.log('check1111',this.props);
   }
   render() {
-    console.log('saga rendering app',this.props.userDetails);
+    // return (
+    //   <div className="App">
+    //      <Route exact path="/" component={()=><UserValidation userData={this.props.userDetails}/>} />
+    //      <Route path="/login" component={()=>
+    //        <Login handleLoginSubmit={this.handleLoginSubmit}
+    //         userData={this.props.userDetails}
+    //       />} />
+    //     <Route path="/dashboard" component={()=><DashBoard userData={this.props.userDetails} />} />
+    //      <Route path="/leadership" component={LeaderShip} />
+    //      <Route path="/processor" component={Processor} />
+    //      <Route path="/qrd" component={Qrd} />
+    //    </Switch>
+    //
+    //   </div>
+    // );
+    let view;
+    if(Object.keys(this.props.userDetails).length ===0){
+      view=<Login handleLoginSubmit={this.handleLoginSubmit}
+       userData={this.props.userDetails}
+     />;
+    }
+    else{
+      view=<DashBoard userData={this.props.userDetails} />;
+    }
     return (
       <div className="App">
-      <BrowserRouter history={history}>
-       <Switch>
-         <Route exact path="/" component={()=><UserValidation userData={this.props.userDetails}/>} />
-         <Route path="/login" component={()=>
-           <Login handleLoginSubmit={this.handleLoginSubmit}
-            userData={this.props.userDetails}
-          />} />
-         <Route path="/leadership" component={LeaderShip} />
-         <Route path="/processor" component={Processor} />
-         <Route path="/qrd" component={Qrd} />
-       </Switch>
-       </BrowserRouter>
+        {view}
       </div>
     );
   }
@@ -69,4 +83,4 @@ function mapDispatchToProps(dispatch){
     return bindActionCreators({getUserDetails: getUserDetails}, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

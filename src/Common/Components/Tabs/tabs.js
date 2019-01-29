@@ -1,6 +1,6 @@
 import React from 'react';
 import './tabs.css';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 const tabData=["class","section","roll"];
 export default class Tabs extends React.Component{
   constructor(props){
