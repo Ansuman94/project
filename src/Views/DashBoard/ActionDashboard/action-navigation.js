@@ -22,51 +22,29 @@ const handleNavChange = (selectedNav, role) => {
 
   return navigationObj;
 }
-const handleTabChange = (selectedTab) => {
+const handleTabChange = (selectedTab, initialUserData) => {
   let navigationObj = {
     selectedTab: {},
     initialFlag: false
   }
+  navigationObj["navData"] = initialUserData["navData"];
+  navigationObj["selectedNav"] = initialUserData["selectedNav"];
+  navigationObj["tabData"] = initialUserData["tabData"];
   navigationObj["selectedTab"] = JSON.parse(JSON.stringify(selectedTab));
   return navigationObj;
 }
-// const handleInitialNav=(role)=>{
-//   console.log('initial role',role);
-//   let navObj={
-//     navData:[],
-//     selectedNav:{},
-//     tabData:[],
-//     selectedTab:{}
-//   },
-//   roleData= NavigationData[role];
-//   roleData.map(navItem=>{
-//     let eachNavObj={};
-//     eachNavObj["id"]=navItem["id"];
-//     eachNavObj["displayName"]=navItem["displayName"];
-//     navObj["navData"].push(eachNavObj);
-//   });
-//   navObj["selectedNav"]=navObj["navData"][0];
-//   if(roleData[0]["tabs"]){
-//     navObj["tabData"].push(...roleData[0]["tabs"]);
-//   }
-//   if(navObj["tabData"].length > 0){
-//     navObj["selectedTab"]=navObj["tabData"][0];
-//   }
-//   console.log('state object ***',navObj);
-//   return navObj;
-// }
+
 export const onNavChange = (selectedNav, role, initialData) => {
   let updatedData = handleNavChange(selectedNav, role);
   return {
     type: 'NAV_CHANGE',
-    //payload: {...initialData,...updatedData},
-    payload: handleNavChange(selectedNav, role),
+    payload: { ...initialData, ...updatedData },
     role: role
 
   }
 }
-export const onTabChange = (selectedTab, role, initialData) => {
-  let updatedData = handleTabChange(selectedTab);
+export const onTabChange = (selectedTab, initialUserData) => {
+  let updatedData = handleTabChange(selectedTab, initialUserData);
 
   return {
     type: 'TAB_CHANGE',
