@@ -17,20 +17,6 @@ import Nav from './Nav';
 
 import DashBoard from './Views/DashBoard/dashBoard';
 
-
-
-
-
-const Home=()=>{
-  return <div>Home</div>
-}
-const About=()=>{
-  return <div>About</div>
-}
-const Topics=()=>{
-  return <div>Topic</div>
-}
-
 class App extends Component {
   constructor(props){
     super(props);
@@ -41,26 +27,12 @@ class App extends Component {
     console.log('check1111',this.props);
   }
   render() {
-    // return (
-    //   <div className="App">
-    //      <Route exact path="/" component={()=><UserValidation userData={this.props.userDetails}/>} />
-    //      <Route path="/login" component={()=>
-    //        <Login handleLoginSubmit={this.handleLoginSubmit}
-    //         userData={this.props.userDetails}
-    //       />} />
-    //     <Route path="/dashboard" component={()=><DashBoard userData={this.props.userDetails} />} />
-    //      <Route path="/leadership" component={LeaderShip} />
-    //      <Route path="/processor" component={Processor} />
-    //      <Route path="/qrd" component={Qrd} />
-    //    </Switch>
-    //
-    //   </div>
-    // );
     let view;
     if(Object.keys(this.props.userDetails).length ===0){
-      view=<Login handleLoginSubmit={this.handleLoginSubmit}
-       userData={this.props.userDetails}
-     />;
+      view=<Route path="/" exact component={()=>
+             <Login handleLoginSubmit={this.handleLoginSubmit}
+              userData={this.props.userDetails}
+            />} />
     }
     else{
       view=<DashBoard userData={this.props.userDetails} />;
@@ -68,6 +40,7 @@ class App extends Component {
     return (
       <div className="App">
         {view}
+
       </div>
     );
   }

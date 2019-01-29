@@ -20,7 +20,7 @@ import history from '../../history';
 
 const getInitialNavData=(userData)=>{
   console.log('user dataa 11111',userData);
-  let stateObj={
+  let initialDataObj={
     navData:[],
     selectedNav:{},
     tabData:[],
@@ -31,17 +31,17 @@ const getInitialNavData=(userData)=>{
     let eachNavObj={};
     eachNavObj["id"]=navObj["id"];
     eachNavObj["displayName"]=navObj["displayName"];
-    stateObj["navData"].push(eachNavObj);
+    initialDataObj["navData"].push(eachNavObj);
   });
-  stateObj["selectedNav"]=stateObj["navData"][0];
+  initialDataObj["selectedNav"]=initialDataObj["navData"][0];
   if(roleData[0]["tabs"]){
-    stateObj["tabData"].push(...roleData[0]["tabs"]);
+    initialDataObj["tabData"].push(...roleData[0]["tabs"]);
   }
-  if(stateObj["tabData"].length > 0){
-    stateObj["selectedTab"]=stateObj["tabData"][0];
+  if(initialDataObj["tabData"].length > 0){
+    initialDataObj["selectedTab"]=initialDataObj["tabData"][0];
   }
-  console.log('state object ***',stateObj);
-  return stateObj;
+  console.log('state object ***',initialDataObj);
+  return initialDataObj;
 }
 
 class DashBoard extends Component {
@@ -49,17 +49,21 @@ class DashBoard extends Component {
     super(props);
   }
   handleNavChange=(selectedNav)=>{
-    let initialUserData=getInitialNavData(this.props.userDetails);
+    let initialUserData=this.props.navigationDetails["initialFlag"] ?
+                        getInitialNavData(this.props.userDetails):
+                        this.props.navigationDetails;
     this.props.selectNav(selectedNav,this.props.userDetails["role"],initialUserData);
   }
   handleTabChange=(selectedTab)=>{
-    let initialUserData=getInitialNavData(this.props.userDetails);
+    let initialUserData=this.props.navigationDetails["initialFlag"] ?
+                        getInitialNavData(this.props.userDetails):
+                        this.props.navigationDetails;
     this.props.selectTab(selectedTab,this.props.userDetails["role"],initialUserData);
   }
   handleSignout=()=>{
     console.log('signing out');
     this.props.onLogout();
-    // this.props.history.push("/");
+    this.props.history.push("/");
   }
   getRoutes=()=>{
     let selectedNavigationData=[],

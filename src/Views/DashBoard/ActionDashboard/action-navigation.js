@@ -30,31 +30,7 @@ const handleTabChange=(selectedTab)=>{
   navigationObj["selectedTab"]=JSON.parse(JSON.stringify(selectedTab));
   return navigationObj;
 }
-// const handleInitialNav=(role)=>{
-//   console.log('initial role',role);
-//   let navObj={
-//     navData:[],
-//     selectedNav:{},
-//     tabData:[],
-//     selectedTab:{}
-//   },
-//   roleData= NavigationData[role];
-//   roleData.map(navItem=>{
-//     let eachNavObj={};
-//     eachNavObj["id"]=navItem["id"];
-//     eachNavObj["displayName"]=navItem["displayName"];
-//     navObj["navData"].push(eachNavObj);
-//   });
-//   navObj["selectedNav"]=navObj["navData"][0];
-//   if(roleData[0]["tabs"]){
-//     navObj["tabData"].push(...roleData[0]["tabs"]);
-//   }
-//   if(navObj["tabData"].length > 0){
-//     navObj["selectedTab"]=navObj["tabData"][0];
-//   }
-//   console.log('state object ***',navObj);
-//   return navObj;
-// }
+
 export const onNavChange = (selectedNav,role,initialData) => {
   let updatedData=handleNavChange(selectedNav,role);
     return {

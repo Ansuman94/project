@@ -1,6 +1,5 @@
 import {NavigationData} from '../../../Utils/Constants';
 const getinitialState=()=>{
-
   let stateObj={
     navData:[],
     selectedNav:{},
@@ -8,21 +7,6 @@ const getinitialState=()=>{
     selectedTab:{},
     initialFlag:true
   };
-  // roleData= NavigationData["leadership"];
-  // roleData.map(navObj=>{
-  //   let eachNavObj={};
-  //   eachNavObj["id"]=navObj["id"];
-  //   eachNavObj["displayName"]=navObj["displayName"];
-  //   stateObj["navData"].push(eachNavObj);
-  // });
-  // stateObj["selectedNav"]=stateObj["navData"][0];
-  // if(roleData[0]["tabs"]){
-  //   stateObj["tabData"].push(...roleData[0]["tabs"]);
-  // }
-  // if(stateObj["tabData"].length > 0){
-  //   stateObj["selectedTab"]=stateObj["tabData"][0];
-  // }
-  // console.log('state object ***',stateObj);
   return stateObj;
 }
 const initialState=getinitialState();
