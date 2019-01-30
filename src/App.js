@@ -13,6 +13,8 @@ import UserValidation from './User/userValidation';
 import Nav from './Nav';
 
 import DashBoard from './Views/DashBoard/dashBoard';
+import Axios from "axios";
+
 
 class App extends Component {
   constructor(props) {
@@ -20,8 +22,15 @@ class App extends Component {
   }
   handleLoginSubmit = (userId, passWord) => {
     console.log("login submited", userId, passWord);
-    this.props.getUserDetails(userId, passWord);
+    // this.props.getUserDetails(userId, passWord);
     console.log('check1111', this.props);
+    try {
+      Axios.defaults.headers.common["SM_USER"] = userId;
+      this.props.getUserDetails(userId, passWord);
+      sessionStorage.setItem("userid", userId);
+    } catch {
+      alert("Not Authorized");
+    }
   }
   render() {
     let view;

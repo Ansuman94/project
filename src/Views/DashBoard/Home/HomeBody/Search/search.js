@@ -1,131 +1,385 @@
-import React, { Component } from 'react';
-import './search.css';
-import DefaultData from './defaultGridData';
-import _ from "underscore";
+import React from "react";
+// import "../../index.css";
+import ReactTable from "react-table";
+import "react-table/react-table.css";
+import debounce from "lodash/debounce";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import Pagination from "../../../../../Common/Components/Pagination/pagination";
+import { connect } from "react-redux";
+import * as actionCreators from "./actions/actions";
 
-export default class SearchGrid extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            gridData: [],
-            selectedRow: [],
-            selectedRowData: [],
-            searchedObject: {}
-        }
-    }
-    componentDidMount() {
-        console.log('1111111');
-        const reqObj = new Request('/Fixtures/formattedGrid.json');
-        fetch(reqObj)
-            .then(r => {
-                console.log('responseData 111', r);
-                return r.json();
-            })
-            .then(data => {
-                this.setState({
-                    gridData: data
-                })
-                console.log('data 111', data);
-            })
-    }
-    getHeader = () => {
-        let headerView = [],
-            headerData = DefaultData["gridHeader"];
-        headerData.map(item => {
-            headerView.push(<div className="headerCell">{item["displayName"]}</div>);
-        })
-        return <div className="headerRow">{headerView}</div>;
-    }
-    getSearchRow = () => {
+import { withRouter } from "react-router-dom";
 
-        let searchBarView = [],
-            searchData = DefaultData["gridHeader"];
-        searchData.map(item => {
-            searchBarView.push(<div className="searchBarCell"><input type="text" className="searchBoxGrid" ref={item["id"]} onChange={this.updateSearchObj} name={item["id"]} /></div>);
-        })
-        return <div className="searchBarRow">{searchBarView}</div>;
+class Employee extends React.Component {
+    componentWillUnmount() {
+        this.props.onEmployeeUnmount();
+    }
 
-    }
-    updateSearchObj = (ev) => {
-        let searchedObject = DefaultData["searchObj"];
-        searchedObject[ev.target.name] = ev.target.value;
-        this.setState({
-            searchedObject
-        });
-    }
-    getBody = () => {
-        let tableBodyView = [],
-            rowView = [],
-            headerData = DefaultData["gridHeader"],
-            checkListView = [],
-            searchedString = "",
-            unsearchedRowFlag = false;
-        this.state.gridData.map(item => {
-            rowView = [];
-            unsearchedRowFlag = false;
-            // item["data"].map(dataObj=>{
-            //   rowView.push(<div className="cell">{dataObj["value"]}</div>);
-            // })
-            let groupedRowData = _.groupBy(JSON.parse(JSON.stringify(item["data"])), "id");
-            console.log('grouped row data', groupedRowData);
-            headerData.map(dataObj => {
-                searchedString = this.state.searchedObject[dataObj["id"]] === undefined ? "" : this.state.searchedObject[dataObj["id"]].toLowerCase();
-                console.log('final check 111', dataObj["id"], groupedRowData);
-                let cellVal = `${groupedRowData[dataObj["id"]][0]["value"]}`,
-                    lowerCaseCellVal = cellVal.toLowerCase();
-                console.log('checlk 11111');
-                if (lowerCaseCellVal.indexOf(searchedString) === -1) {
-                    unsearchedRowFlag = true;
+    handleChange = (onChange, column) => {
+        return event => {
+            const type = column.type;
+            if (type === "date") {
+                if (event._d === undefined || event._d === null || event._d === "") {
+                    this.props.onDeleteFilter(column);
+                    onChange();
+                    return;
                 }
-
-                rowView.push(<div className="cell" title={`${cellVal}`}>{cellVal}</div>);
-
-            })
-            if (!unsearchedRowFlag) {
-                tableBodyView.push(<div className="rowView">{rowView}</div>);
-                checkListView.push(<div className='checkListWrap'><div className="checkListEach" onClick={() => this.selectRow(item["caseid"])}>{this.state.selectedRow.indexOf(item["caseid"]) !== -1 ? "*" : ""}</div></div>);
+            } else {
+                if (
+                    event.target.value === undefined ||
+                    event.target.value === null ||
+                    event.target.value === ""
+                ) {
+                    this.props.onDeleteFilter(column);
+                    onChange();
+                    return;
+                }
             }
-        })
-        return [
-            <div className='checkListColumnView'>{checkListView}</div>,
-            <div className="tableBodyWrapper"><div className='tableBodyView'>{tableBodyView}</div></div>
-        ];
-    }
-    selectRow = (rowId) => {
-        // let gridData=JSON.parse(JSON.stringify(this.state.gridData)),
-        //     ;
-        let selectedData = [],
-            selectedRow = JSON.parse(JSON.stringify(this.state.selectedRow));
-        // selectedData.map((item,index)=>{
-        //
-        // })
-        if (this.state.selectedRow.indexOf(rowId) === -1) {
-            selectedRow.push(rowId);
-        }
-        else {
-            selectedRow.splice(selectedRow.indexOf(rowId), 1);
-        }
-        this.state.gridData.map(item => {
-            if (selectedRow.indexOf(item["caseid"]) >= 0) {
-                selectedData.push(JSON.parse(JSON.stringify(item)));
-            }
-        })
-        this.setState({
-            selectedRow,
-            selectedData
-        })
 
-    }
+            if (type === "date") {
+                this.props.onDateChange(column, event);
+            } else {
+                this.props.onFilterChange(column, event);
+            }
+            onChange();
+        };
+    };
+
+    getFilterValueFromState = (identifier, defaultValue = "") => {
+        const filterState = this.props.filterState;
+        if (!filterState) {
+            return defaultValue;
+        }
+        if (
+            typeof filterState[identifier] !== "undefined" ||
+            filterState[identifier] !== null
+        ) {
+            return filterState[identifier];
+        }
+        return defaultValue;
+    };
+
+    fetchGridData = debounce((state, instance) => {
+        let search = null;
+        const colTypeMapping = state.allDecoratedColumns.reduce(
+            (accumulator, currentValue) => {
+                return { ...accumulator, [currentValue.id]: currentValue.type };
+            },
+            {}
+        );
+        const filterKeys = Object.keys(this.props.filterState);
+        if (filterKeys.length !== 0) {
+            search = "( ";
+            search += filterKeys
+                .map(key => {
+                    let suffix = "";
+                    if (colTypeMapping[key] && colTypeMapping[key] === "text") {
+                        suffix = "*";
+                    }
+                    return this.props.filterState[key]
+                        ? key + ":" + this.props.filterState[key] + suffix
+                        : "";
+                })
+                .join(" and ");
+            search += " )";
+        }
+
+        const params = {
+            page: state.page,
+            size: state.pageSize,
+            sort: state.sorted["0"]
+                ? state.sorted["0"].id +
+                "," +
+                (state.sorted["0"].desc === false ? "desc" : "asc")
+                : "id",
+            search
+        };
+        console.log('fetching data 11111');
+        this.props.onLoadData();
+        this.props.onApiCall(params);
+    }, 500);
+
     render() {
-        let tableBody = this.getBody(),
-            tableHeader = this.getHeader(),
-            serachBar = this.getSearchRow();
-        return (
-            <div className='gridMain'>
-                <div className="tableHeaderWrapper">{tableHeader}</div>
-                <div className="searchRowWrapper">{serachBar}</div>
-                <div className='tableColumnsWrap'>{tableBody}</div>
+        const emp_data = this.props.emp_data;
+        const isLoading = this.props.isLoading;
+        const pages = this.props.pages;
+        const content = (
+            <div>
+                <ReactTable
+                    data={emp_data}
+                    freezeWhenExpanded={true}
+                    filterable
+                    pages={pages}
+                    Pagination={true}
+                    showPagination={true}
+                    showPaginationTop={true}
+                    showPaginationBottom={true}
+                    showPageSizeOptions={true}
+                    PaginationComponent={Pagination}
+                    manual
+                    minRows={0}
+                    loading={isLoading}
+                    onFetchData={this.fetchGridData}
+                    columns={[
+                        {
+                            Header: "ID",
+                            accessor: "id",
+                            type: "number",
+                            Filter: ({ column, onChange }) => (
+                                <input
+                                    type="text"
+                                    size="8"
+                                    onChange={this.handleChange(onChange, column)}
+                                    value={
+                                        this.props.filterState.id ? this.props.filterState.id : ""
+                                    }
+                                />
+                            )
+                        },
+                        {
+                            Header: "Name",
+                            accessor: "name",
+                            type: "text",
+                            Filter: ({ column, onChange }) => (
+                                <input
+                                    type="text"
+                                    size="8"
+                                    onChange={this.handleChange(onChange, column)}
+                                    value={
+                                        this.props.filterState.name
+                                            ? this.props.filterState.name
+                                            : ""
+                                    }
+                                />
+                            )
+                        },
+
+                        {
+                            Header: "Skill",
+                            accessor: "skill",
+                            type: "text",
+                            Filter: ({ column, onChange }) => (
+                                <input
+                                    type="text"
+                                    size="8"
+                                    onChange={this.handleChange(onChange, column)}
+                                    value={
+                                        this.props.filterState.skill
+                                            ? this.props.filterState.skill
+                                            : ""
+                                    }
+                                />
+                            )
+                        },
+                        {
+                            Header: "DOJ",
+                            accessor: "doj",
+                            type: "date",
+                            Filter: ({ column, onChange }) => (
+                                <DatePicker
+                                    placeholderText="Select a date"
+                                    value={
+                                        this.props.filterState.doj ? this.props.filterState.doj : ""
+                                    }
+                                    onChange={this.handleChange(onChange, column)}
+                                />
+                            )
+                        },
+                        {
+                            Header: "Designation",
+                            accessor: "desg",
+                            type: "text",
+                            minWidth: 110,
+                            Filter: ({ column, onChange }) => (
+                                <select
+                                    onChange={this.handleChange(onChange, column)}
+                                    value={this.getFilterValueFromState("desg", "all")}
+                                    style={{
+                                        width: "100%"
+                                    }}
+                                >
+                                    <option value="">Show all</option>
+                                    <option value="dev">dev</option>
+                                    <option value="Tester">Tester</option>
+                                    <option value="Specialist">Specialist</option>
+                                    <option value="UI">UI dev</option>
+                                </select>
+                            )
+                        },
+                        {
+                            Header: "Grade",
+                            accessor: "grade",
+                            type: "number",
+                            Filter: ({ column, onChange }) => (
+                                <input
+                                    type="text"
+                                    size="8"
+                                    onChange={this.handleChange(onChange, column)}
+                                    value={
+                                        this.props.filterState.grade
+                                            ? this.props.filterState.grade
+                                            : ""
+                                    }
+                                />
+                            )
+                        },
+                        {
+                            id: "dept.deptname",
+                            Header: "Department",
+                            accessor: "deptname",
+                            type: "text",
+                            Filter: ({ column, onChange }) => (
+                                <input
+                                    type="text"
+                                    size="8"
+                                    onChange={this.handleChange(onChange, column)}
+                                    value={
+                                        this.props.filterState["dept.deptname"]
+                                            ? this.props.filterState["dept.deptname"]
+                                            : ""
+                                    }
+                                />
+                            )
+                        },
+                        {
+                            Header: "Salary",
+                            accessor: "salary",
+                            type: "number",
+                            Filter: ({ column, onChange }) => (
+                                <input
+                                    type="text"
+                                    size="8"
+                                    onChange={this.handleChange(onChange, column)}
+                                    value={
+                                        this.props.filterState.salary
+                                            ? this.props.filterState.salary
+                                            : ""
+                                    }
+                                />
+                            )
+                        },
+                        {
+                            Header: "City",
+                            accessor: "city",
+                            type: "text",
+                            Filter: ({ column, onChange }) => (
+                                <input
+                                    type="text"
+                                    size="8"
+                                    onChange={this.handleChange(onChange, column)}
+                                    value={
+                                        this.props.filterState.city
+                                            ? this.props.filterState.city
+                                            : ""
+                                    }
+                                />
+                            )
+                        },
+                        {
+                            Header: "Country",
+                            accessor: "country",
+                            type: "text",
+                            Filter: ({ column, onChange }) => (
+                                <input
+                                    type="text"
+                                    size="8"
+                                    onChange={this.handleChange(onChange, column)}
+                                    value={
+                                        this.props.filterState.country
+                                            ? this.props.filterState.country
+                                            : ""
+                                    }
+                                />
+                            )
+                        }
+                    ]}
+                    defaultPageSize={5}
+                    className="-striped -highlight"
+                    getTdProps={() => {
+                        return {
+                            style: {
+                                overflow: "visible"
+                            }
+                        };
+                    }}
+                    getTheadFilterThProps={() => {
+                        return {
+                            style: {
+                                position: "inherit",
+                                overflow: "inherit"
+                            }
+                        };
+                    }}
+                    SubComponent={rows => {
+                        const dep = rows.original.Dep_head
+                            ? rows.original.Dep_head.depthead
+                            : "";
+                        return (
+                            <div className="Posts">
+                                <header>
+                                    <ul>
+                                        <li>
+                                            Dep ID :{" "}
+                                            {rows.original.Dep_head
+                                                ? rows.original.Dep_head.deptid
+                                                : ""}
+                                        </li>
+                                        <li>
+                                            Dep Name :{" "}
+                                            {rows.original.Dep_head
+                                                ? rows.original.Dep_head.deptname
+                                                : ""}
+                                        </li>
+                                        <li>Dep Head : {dep ? dep.name : ""}</li>
+                                        <li>City : {dep ? dep.city : ""}</li>
+                                        <li>Country : {dep ? dep.country : ""}</li>
+                                        <li>Designation : {dep ? dep.desg : ""}</li>
+                                        <li>DOJ : {dep ? dep.doj : ""}</li>
+                                        <li>Grade : {dep ? dep.grade : ""}</li>
+                                        <li>Salary : {dep ? dep.salary : ""}</li>
+                                        <li>Skill : {dep ? dep.skill : ""}</li>
+                                    </ul>
+                                </header>
+                            </div>
+                        );
+                    }}
+                />
             </div>
-        )
+        );
+
+        return <div> {content} </div>;
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        emp_data: state.emp.emp_data,
+        isLoading: state.emp.isLoading,
+        filterState: state.emp.filterState,
+        pages: state.emp.pages
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onDateChange: (column, event) =>
+            dispatch(actionCreators.date_change(column, event)),
+        onFilterChange: (column, event) =>
+            dispatch(actionCreators.filter_change(column, event)),
+        onLoadData: () => dispatch(actionCreators.load_employee()),
+        onDeleteFilter: column =>
+            dispatch(actionCreators.delete_filter_emp(column)),
+        onEmployeeUnmount: () => dispatch(actionCreators.employee_unmount()),
+        onApiCall: params => dispatch(actionCreators.axiosCallSaga(params))
+    };
+};
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(Employee)
+);
+
+//export default connect(mapStateToProps, mapDispatchToProps)(Employee);

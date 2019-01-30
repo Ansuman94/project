@@ -3,6 +3,7 @@ import { Redirect, Route, NavLink } from 'react-router-dom';
 
 import Search from './Home/HomeBody/Search/search';
 import WRAging from './Home/HomeBody/WRAging/wrAging';
+import CurrentStatus from './Home/HomeBody/CurrentStatus/currentStatus';
 
 
 class BodyMain extends Component {
@@ -14,9 +15,13 @@ class BodyMain extends Component {
     if (this.props.tabData["id"] === 'search') {
       view = <Search />;
     }
+    else if (this.props.tabData["id"] === 'currentstatus') {
+      view = <CurrentStatus />;
+    }
     else {
       view = <WRAging />;
     }
+
     return (
 
       <div>{view}</div>

@@ -1,12 +1,14 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 // import UserDetails from '../User/reducer-userDetails';
 // import LeaderShipNav from '../Views/DashBoard/LeaderShip/ReducerLeadership/reducer-navigation';
 import UserDetails from '../User/reducer-userDetails';
 import LeaderShipNav from '../Views/DashBoard/ReducerDashboard/reducer-navigation';
+import Employee from '../Views/DashBoard/Home/HomeBody/Search/EmployeeReducers/employeeReducer'
 
 const allReducers = combineReducers({
     userDetails: UserDetails,
-    LeaderShipNavDetails:LeaderShipNav
+    LeaderShipNavDetails: LeaderShipNav,
+    emp: Employee
 });
 // const allReducers = (state = {}, action: Action) => {
 //   return {
