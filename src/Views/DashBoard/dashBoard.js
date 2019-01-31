@@ -12,11 +12,12 @@ import Footer from '../../Common/Components/Footer/footer';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { onNavChange, onTabChange } from './ActionDashboard/action-navigation';
-import { onLogout } from './ActionDashboard/action-logout';
+import { onLogout, onLogoutTabs } from './ActionDashboard/action-logout';
 
 import { withRouter } from 'react-router-dom';
 
 import history from '../../history';
+import './dashboard.css';
 
 const getInitialNavData = (userData) => {
   console.log('user dataa 11111', userData);
@@ -50,26 +51,27 @@ class DashBoard extends Component {
   }
   handleNavChange = (selectedNav) => {
     let initialUserData = this.props.navigationDetails["initialFlag"] ?
-      getInitialNavData(this.props.userDetails) :
+      getInitialNavData(this.props.userDetails["userData"]) :
       this.props.navigationDetails;
-    this.props.selectNav(selectedNav, this.props.userDetails["role"], initialUserData);
+    this.props.selectNav(selectedNav, this.props.userDetails["userData"]["role"], initialUserData);
   }
   handleTabChange = (selectedTab) => {
     let initialUserData = this.props.navigationDetails["initialFlag"] ?
-      getInitialNavData(this.props.userDetails) :
+      getInitialNavData(this.props.userDetails["userData"]) :
       this.props.navigationDetails;
     this.props.selectTab(selectedTab, initialUserData);
   }
   handleSignout = () => {
     console.log('signing out');
     this.props.onLogout();
+    this.props.onLogoutTabs();
     this.props.history.push("/");
   }
   getRoutes = () => {
     let selectedNavigationData = [],
       routes = [];
-    if (NavigationData[this.props.userDetails["role"]]) {
-      selectedNavigationData = NavigationData[this.props.userDetails["role"]];
+    if (NavigationData[this.props.userDetails["userData"]["role"]]) {
+      selectedNavigationData = NavigationData[this.props.userDetails["userData"]["role"]];
     }
     selectedNavigationData.map(navItem => {
       navItem["tabs"].map(tabItem => {
@@ -88,16 +90,16 @@ class DashBoard extends Component {
       selectedNavigationData;
     console.log('check 11111111111', this.props.navigationDetails);
     if (this.props.navigationDetails["initialFlag"]) {
-      selectedNavigationData = JSON.parse(JSON.stringify(getInitialNavData(this.props.userDetails)));
+      selectedNavigationData = JSON.parse(JSON.stringify(getInitialNavData(this.props.userDetails["userData"])));
     }
     else {
       console.log('check 11111111111222222', this.props.navigationDetails);
       selectedNavigationData = JSON.parse(JSON.stringify(this.props.navigationDetails));
     }
     return (
-      <div>
+      <div className='dashboard-view'>
         <Header
-          userDetails={this.props.userDetails}
+          userDetails={this.props.userDetails["userData"]}
           handleSignout={this.handleSignout} />
         <Navs
           handleNavChange={this.handleNavChange}
@@ -127,6 +129,6 @@ function mapStateToProps(state) {
   };
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ selectNav: onNavChange, selectTab: onTabChange, onLogout: onLogout }, dispatch);
+  return bindActionCreators({ selectNav: onNavChange, selectTab: onTabChange, onLogout: onLogout, onLogoutTabs }, dispatch);
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DashBoard));

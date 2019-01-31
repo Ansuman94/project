@@ -22,6 +22,9 @@ export default function (state = { ...initialState }, action) {
         case 'TAB_CHANGE':
             console.log('reducer working nav', action.payload);
             return { ...state, ...action.payload };
+        case 'ON_LOGOUT_TABS': {
+            return { ...initialState };
+        }
         default:
             return state;
     }

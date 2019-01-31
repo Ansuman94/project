@@ -4,13 +4,13 @@ import { BrowserRouter, Route, Switch, Redirect, withRouter } from 'react-router
 import history from './history';
 
 import Login from './Views/Login/login';
+import Loader from './Common/Components/Loader/loader'
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getUserDetails } from './User/action-userDetails';
 
 import UserValidation from './User/userValidation';
-import Nav from './Nav';
 
 import DashBoard from './Views/DashBoard/dashBoard';
 import Axios from "axios";
@@ -33,20 +33,24 @@ class App extends Component {
     }
   }
   render() {
+    console.log('user data', this.props.userDetails);
     let view;
-    if (Object.keys(this.props.userDetails).length === 0) {
+    if (Object.keys(this.props.userDetails["userData"]).length === 0) {
       view = <Route path="/" exact component={() =>
         <Login handleLoginSubmit={this.handleLoginSubmit}
           userData={this.props.userDetails}
         />} />
     }
     else {
+      if (this.props.userDetails["isLoading"]) {
+
+      }
       view = <DashBoard userData={this.props.userDetails} />;
     }
     return (
       <div className="App">
+        {this.props.userDetails["isLoading"] ? <Loader /> : <div></div>}
         {view}
-
       </div>
     );
   }

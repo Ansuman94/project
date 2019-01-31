@@ -1,0 +1,15 @@
+.loader-view-wrap{
+    position: absolute;
+    z-index: 1000;
+    background-color: #666;
+    opacity: 0.8;
+    color: white;
+    width: 100vw !important;
+    height: 100vh !important;
+    text-align: center;
+    display: flex;
+    flex: column;
+    flex: flop;
+    flex-direction: column;
+    justify-content: center;
+}
