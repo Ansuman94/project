@@ -6,20 +6,8 @@ function* fetchUserDetails(action) {
   console.log('saga action worker', action);
   let userData = {}, role;
 
-  // const fetchedData = yield fetch('./Fixtures/userDetails.json')
-  //       .then(response => response.json());
   const fetchedData = yield axios.get('https://genericspringrest.herokuapp.com/user/getcurrentuserinfo');
-  // .then(response => response.json());
   console.log('saga fetched data', fetchedData);
-  // fetchedData.map(item=>{
-  //   if(item["userid"]===action["userId"] && item["password"]===action["passWord"]){
-  //     userData=JSON.parse(JSON.stringify(item));
-  //     console.log('saga 22222',userData);
-  //   }
-  // })
-  // if(Object.keys(userData).length===0){
-  //   alert('please enetr correct credentials');
-  // }
   let responseData = fetchedData["data"];
   userData["userid"] = responseData["name"];
   if (responseData["roles"].indexOf("Leadership") !== -1) {

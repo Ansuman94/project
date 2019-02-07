@@ -29,6 +29,12 @@ export default function (state = initialState, action) {
         case 'ON_LOGOUT':
             console.log('saga login logout reducer');
             return { ...initialState };
+        case 'USER_DETAILS_URL_CHANGE' :
+            return {
+                ...state,
+                ...{ userData: action.payload },
+                isLoading: false
+            };
         default:
             return state;
     }

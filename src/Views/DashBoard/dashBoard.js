@@ -3,6 +3,7 @@ import { Redirect, Route, NavLink, BrowserRouter, Switch } from 'react-router-do
 import { NavigationData } from '../../Utils/Constants';
 import BodyMain from './dashBoardBodyMain';
 import DashBoardNavigation from './dashBoardNavigation';
+import _ from "underscore";
 
 import Tabs from '../../Common/Components/Tabs/tabs';
 import Navs from '../../Common/Components/Navs/navs';
@@ -19,7 +20,7 @@ import { withRouter } from 'react-router-dom';
 import history from '../../history';
 import './dashboard.css';
 
-const getInitialNavData = (userData) => {
+const getInitialNavData = (userData,path='/') => {
   console.log('user dataa 11111', userData);
   let initialDataObj = {
     navData: [],
@@ -27,19 +28,46 @@ const getInitialNavData = (userData) => {
     tabData: [],
     selectedTab: {}
   },
-    roleData = NavigationData[userData["role"]];
+  roleData = NavigationData[userData["role"]],
+  groupedNavData = _.groupBy(roleData, "id"),
+  navArray,
+  selectedNavId,
+  selectedTabId;
+  if(path!== '/'){
+    navArray=path.split('/');
+    selectedNavId=navArray[1];
+    selectedTabId=navArray[2];
+  }
   roleData.map(navObj => {
     let eachNavObj = {};
     eachNavObj["id"] = navObj["id"];
     eachNavObj["displayName"] = navObj["displayName"];
     initialDataObj["navData"].push(eachNavObj);
   });
-  initialDataObj["selectedNav"] = initialDataObj["navData"][0];
-  if (roleData[0]["tabs"]) {
-    initialDataObj["tabData"].push(...roleData[0]["tabs"]);
+  if(path!== '/'){
+    initialDataObj["selectedNav"] = groupedNavData[selectedNavId][0];;
+  }
+  else{
+    initialDataObj["selectedNav"] = initialDataObj["navData"][0];
+  }
+
+  if (initialDataObj["selectedNav"]["tabs"]) {
+    initialDataObj["tabData"].push(...initialDataObj["selectedNav"]["tabs"]);
   }
   if (initialDataObj["tabData"].length > 0) {
-    initialDataObj["selectedTab"] = initialDataObj["tabData"][0];
+    if(path!== '/'){
+      initialDataObj["tabData"].map(tabObj=>{
+        if(tabObj["id"]===selectedTabId){
+          initialDataObj["selectedTab"]=JSON.parse(JSON.stringify(tabObj));
+        }
+        if(Object.keys(initialDataObj["selectedTab"]).length===0){
+          initialDataObj["selectedTab"]=initialDataObj["tabData"][0];
+        }
+      })
+    }else{
+      initialDataObj["selectedTab"] = initialDataObj["tabData"][0];
+    }
+
   }
   console.log('state object ***', initialDataObj);
   return initialDataObj;
@@ -49,6 +77,9 @@ class DashBoard extends Component {
   constructor(props) {
     super(props);
   }
+  componentDidMount(){
+    console.log('user update 22222',this.props.location);
+  }
   handleNavChange = (selectedNav) => {
     let initialUserData = this.props.navigationDetails["initialFlag"] ?
       getInitialNavData(this.props.userDetails["userData"]) :
@@ -57,7 +88,7 @@ class DashBoard extends Component {
   }
   handleTabChange = (selectedTab) => {
     let initialUserData = this.props.navigationDetails["initialFlag"] ?
-      getInitialNavData(this.props.userDetails["userData"]) :
+      getInitialNavData(this.props.userDetails["userData"],) :
       this.props.navigationDetails;
     this.props.selectTab(selectedTab, initialUserData);
   }
@@ -88,12 +119,10 @@ class DashBoard extends Component {
   render() {
     let routes = this.getRoutes(),
       selectedNavigationData;
-    console.log('check 11111111111', this.props.navigationDetails);
     if (this.props.navigationDetails["initialFlag"]) {
-      selectedNavigationData = JSON.parse(JSON.stringify(getInitialNavData(this.props.userDetails["userData"])));
+      selectedNavigationData = JSON.parse(JSON.stringify(getInitialNavData(this.props.userDetails["userData"],this.props.path)));
     }
     else {
-      console.log('check 11111111111222222', this.props.navigationDetails);
       selectedNavigationData = JSON.parse(JSON.stringify(this.props.navigationDetails));
     }
     return (
