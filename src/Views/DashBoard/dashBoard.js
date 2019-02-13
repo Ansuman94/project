@@ -84,14 +84,14 @@ class DashBoard extends Component {
   }
   handleNavChange = (selectedNav) => {
     let initialUserData = this.props.navigationDetails["initialFlag"] ?
-      getInitialNavData(this.props.userDetails["userData"]) :
+      getInitialNavData(this.props.userDetails["userData"],this.props.path) :
       this.props.navigationDetails;
     this.props.selectNav(selectedNav, this.props.userDetails["userData"]["role"], initialUserData);
   }
   handleTabChange = (selectedTab) => {
     console.log('initial data 11111',this.props.navigationDetails["initialFlag"]);
     let initialUserData = this.props.navigationDetails["initialFlag"] ?
-      getInitialNavData(this.props.userDetails["userData"]) :
+      getInitialNavData(this.props.userDetails["userData"],this.props.path) :
       this.props.navigationDetails;
     this.props.selectTab(selectedTab, initialUserData);
   }
@@ -100,8 +100,7 @@ class DashBoard extends Component {
     this.props.onLogout();
     this.props.onLogoutTabs();
     this.props.history.push("/");
-    // let mountNode = ReactDOM.findDOMNode(this.refs.app);
-    // let unmount = ReactDOM.unmountComponentAtNode(mountNode);
+    
   }
   getRoutes = () => {
     let selectedNavigationData = [],
