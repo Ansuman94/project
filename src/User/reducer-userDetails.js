@@ -7,11 +7,8 @@ const getinitialState = () => {
 }
 const initialState = getinitialState();
 export default function (state = initialState, action) {
-    console.log('saga 1111111', action, state);
     switch (action.type) {
         case 'USER_DETAILS':
-            console.log("state:", state);
-            console.log('reducer working', action.payload);
             return {
                 ...state,
                 ...{ userData: action.payload },
@@ -19,8 +16,6 @@ export default function (state = initialState, action) {
             };
 
         case 'RECEIVED_USER_DETAILS':
-            console.log('reducer working', action.payload);
-
             return {
                 ...state,
                 ...{ userData: action.payload },

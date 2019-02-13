@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
+import {ReactDOM} from 'react-dom';
 import { Redirect, Route, NavLink, BrowserRouter, Switch } from 'react-router-dom';
 import { NavigationData } from '../../Utils/Constants';
 import BodyMain from './dashBoardBodyMain';
@@ -42,6 +43,7 @@ const getInitialNavData = (userData,path='/') => {
     let eachNavObj = {};
     eachNavObj["id"] = navObj["id"];
     eachNavObj["displayName"] = navObj["displayName"];
+    eachNavObj["tabs"]=navObj["tabs"];
     initialDataObj["navData"].push(eachNavObj);
   });
   if(path!== '/'){
@@ -87,8 +89,9 @@ class DashBoard extends Component {
     this.props.selectNav(selectedNav, this.props.userDetails["userData"]["role"], initialUserData);
   }
   handleTabChange = (selectedTab) => {
+    console.log('initial data 11111',this.props.navigationDetails["initialFlag"]);
     let initialUserData = this.props.navigationDetails["initialFlag"] ?
-      getInitialNavData(this.props.userDetails["userData"],) :
+      getInitialNavData(this.props.userDetails["userData"]) :
       this.props.navigationDetails;
     this.props.selectTab(selectedTab, initialUserData);
   }
@@ -97,6 +100,8 @@ class DashBoard extends Component {
     this.props.onLogout();
     this.props.onLogoutTabs();
     this.props.history.push("/");
+    // let mountNode = ReactDOM.findDOMNode(this.refs.app);
+    // let unmount = ReactDOM.unmountComponentAtNode(mountNode);
   }
   getRoutes = () => {
     let selectedNavigationData = [],
@@ -119,6 +124,7 @@ class DashBoard extends Component {
   render() {
     let routes = this.getRoutes(),
       selectedNavigationData;
+    console.log('initial data',this.props.navigationDetails);
     if (this.props.navigationDetails["initialFlag"]) {
       selectedNavigationData = JSON.parse(JSON.stringify(getInitialNavData(this.props.userDetails["userData"],this.props.path)));
     }

@@ -25,18 +25,16 @@ class App extends Component {
   }
   componentWillMount(){
     if(this.props.location["pathname"] !=='/'){
-      if(sessionStorage.getItem("userRole")){
-        this.props.onUrlEntered(sessionStorage.getItem("userRole"),this.props.location["pathname"]);
-        this.props.onUrlChangeUserDetails(sessionStorage.getItem("userRole"),sessionStorage.getItem("userid"));
+      if([undefined,"undefined",null].indexOf(sessionStorage.getItem("userRole")) < 0){
+        // this.props.onUrlEntered(sessionStorage.getItem("userRole"),this.props.location["pathname"]);
+        Axios.defaults.headers.common["SM_USER"] = sessionStorage.getItem("userid");
+        this.props.onUrlChangeUserDetails(sessionStorage.getItem("userRole"),sessionStorage.getItem("userName"));
       }
 
     }
   }
-
+  
   handleLoginSubmit = (userId, passWord) => {
-    console.log("login submited", userId, passWord);
-    // this.props.getUserDetails(userId, passWord);
-    console.log('check1111', this.props);
     try {
       Axios.defaults.headers.common["SM_USER"] = userId;
       this.props.getUserDetails(userId, passWord);
@@ -49,10 +47,13 @@ class App extends Component {
 
   render() {
     sessionStorage.setItem("userRole", this.props.userDetails["userData"]["role"]);
-    console.log('user data', this.props.userDetails);
+    sessionStorage.setItem("userName", this.props.userDetails["userData"]["userid"]);
+    console.log('initial data 11111', this.props.userDetails);
+    //console.log('initial data 111112222', this.props.navigationDetails);
     console.log('user location', this.props.location);
     let view;
-    if (Object.keys(this.props.userDetails["userData"]).length === 0) {
+    console.log('next props 2222',this.props.userDetails);
+    if (Object.keys(this.props.userDetails["userData"]).length === 0 ) {
       view = <Login handleLoginSubmit={this.handleLoginSubmit}
           userData={this.props.userDetails} />
     }
@@ -61,7 +62,7 @@ class App extends Component {
                 path={this.props.location["pathname"]}/>;
     }
     return (
-      <div className="App">
+      <div className="App" ref="app">
         {this.props.userDetails["isLoading"] ? <Loader /> : <div></div>}
         {view}
       </div>

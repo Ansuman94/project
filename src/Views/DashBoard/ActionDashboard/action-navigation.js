@@ -81,6 +81,7 @@ export const onNavChange = (selectedNav, role, initialData) => {
   }
 }
 export const onTabChange = (selectedTab, initialUserData) => {
+  console.log('initial data 111',initialUserData);
   let updatedData = handleTabChange(selectedTab, initialUserData);
 
   return {
@@ -89,6 +90,7 @@ export const onTabChange = (selectedTab, initialUserData) => {
   }
 }
 export const onUrlEntered = (role,path) => {
+    console.log('initial data 33333',handleUrlChange(role,path));
     return {
         type: 'ON_URL_CHANGE',
         payload: handleUrlChange(role,path)

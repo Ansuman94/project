@@ -1,6 +1,7 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 
 const getUserDetailsOnURLchange = (role,userId) =>{
+  console.log('user id ',userId);
   let userData={};
   userData["userid"]=userId;
   userData["role"]=role;
