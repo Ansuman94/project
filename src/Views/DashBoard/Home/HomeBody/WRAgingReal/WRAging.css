@@ -4,18 +4,30 @@
     background-color: #A8A8A8;
     height: 60px;
     line-height: 60px;
-    padding-left: 50px;
+    padding-left: 0px !important;
   }
   .rowView{
     display: flex;
     flex: 1;
     height: 40px;
-    line-height: 40px
+    line-height: 40px;
+    animation: slide-up 0.4s ease;
   }
   .cell{
     flex: 1;
-    /*border: 1px solid;*/
-
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    /*border: 1px solid #ccc;*/
+  }
+  .row-first-Cell{
+    flex: 2.5 !important;
+    text-align: left;
+    padding-left: 20px;
+    display: flex;
+  }
+  .first-cell-label{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -23,10 +35,32 @@
   .headerCell{
     flex: 1;
     /*border: 1px solid;*/
-
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  .row-header-cell{
+    flex: 2.5 !important;
+    text-align: left;
+    padding-left: 20px;
+  }
+  .expansion-icon-wrap{
+    padding: 0px 10px ;
+  }
+  .level-1-view{
+    margin-left: 0px;
+  }
+  .level-2-view{
+    margin-left: 20px !important;
+  }
+  .level-3-view{
+    margin-left: 40px !important;
+  }
+  .level-4-view{
+    margin-left: 60px !important;
+  }
+  .hide-view{
+    display: none !important;
   }
 
   .checkListEach{

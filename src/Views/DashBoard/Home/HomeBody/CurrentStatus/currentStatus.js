@@ -83,7 +83,10 @@ export default class SearchGrid extends React.Component {
             })
             if (!unsearchedRowFlag) {
                 tableBodyView.push(<div className="rowView">{rowView}</div>);
-                checkListView.push(<div className='checkListWrap'><div className="checkListEach" onClick={() => this.selectRow(item["caseid"])}>{this.state.selectedRow.indexOf(item["caseid"]) !== -1 ? "*" : ""}</div></div>);
+                console.log('check list check',item);
+                let checkListClass= item["isChecked"] ? "checkListEach" : "checkListEach hidenClass" ;
+                checkListView.push(<div className='checkListWrap'><div className={checkListClass} onClick={() => this.selectRow(item["caseid"])}>{this.state.selectedRow.indexOf(item["caseid"]) !== -1 ? "*" : ""}</div></div>);
+
             }
         })
         return [
@@ -92,13 +95,8 @@ export default class SearchGrid extends React.Component {
         ];
     }
     selectRow = (rowId) => {
-        // let gridData=JSON.parse(JSON.stringify(this.state.gridData)),
-        //     ;
         let selectedData = [],
             selectedRow = JSON.parse(JSON.stringify(this.state.selectedRow));
-        // selectedData.map((item,index)=>{
-        //
-        // })
         if (this.state.selectedRow.indexOf(rowId) === -1) {
             selectedRow.push(rowId);
         }
